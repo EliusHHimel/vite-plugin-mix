@@ -144,6 +144,44 @@ export const handler = (req, res, next) => {
 
 You can also use `express` + `apollo-server-express` if you want.
 
+## Common Issues
+### `Error: mix is not a function`
+I'll fix it later, but for now, this is caused by the way how the package is exported. The package is exported in a way that is compatible with both CommonJS and ES Modules, but sometimes TypeScript or your bundler might not interpret it correctly.
+
+Workaround this issue by importing like this:
+`TypeScript`
+```ts
+import { defineConfig } from 'vite'
+import mixPlugin, { Adapter } from '@eliushhimel/vite-plugin-mix'
+
+interface MixConfig {
+  handler: string
+  adapter?: Adapter | undefined
+}
+type MixPlugin = (config: MixConfig) => Plugin
+
+interface Mix {
+  default: MixPlugin
+}
+const mix = (mixPlugin as unknown as Mix).default
+
+export default defineConfig({
+  plugins: [
+    mix({
+      handler: './handler.ts',
+    }),
+  ],
+})
+```
+
+`JavaScript`
+```js
+import mixPlugin from 'vite-plugin-mix'
+
+const mix = mixPlugin.default
+```
+
+
 ## License
 
 MIT &copy;
