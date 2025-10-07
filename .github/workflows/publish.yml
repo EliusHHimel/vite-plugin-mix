@@ -35,6 +35,5 @@ jobs:
         run: pnpm i
       - name: Publish to npm
         run: npm publish
-        working-directory: ./vite-plugin-mix
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
