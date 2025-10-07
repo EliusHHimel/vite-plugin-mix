@@ -30,12 +30,9 @@ jobs:
       - name: Install pnpm
         run: npm i -g pnpm
 
+        working-directory: ./vite-plugin-mix
       - name: Install deps
         run: pnpm i
-
-      - name: Install dependencies
-        run: pnpm install
-        working-directory: ./vite-plugin-mix
       - name: Publish to npm
         run: npm publish
         working-directory: ./vite-plugin-mix
