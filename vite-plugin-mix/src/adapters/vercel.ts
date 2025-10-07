@@ -39,7 +39,7 @@ export const vercelAdapter = (): Adapter => {
       await outputFile(
         path.join(functionDir, '.vc-config.json'),
         JSON.stringify({
-          runtime: 'nodejs16.x',
+          runtime: 'nodejs20.x',
           handler: path.basename(handlerFilePath),
           // maxDuration: 3,
           launcherType: 'Nodejs',
@@ -51,7 +51,7 @@ export const vercelAdapter = (): Adapter => {
       const traceResult = await nodeFileTrace([handlerFilePath])
 
       await Promise.all(
-        traceResult.fileList.map(async (file) => {
+        [...traceResult.fileList].map(async (file) => {
           console.log(file)
           if (!file.includes('node_modules')) return
           const outFile = path.join(functionDir, file)
