@@ -1,0 +1,28 @@
+# Publish the package to npm whenever the version is updated in package.json
+name: Publish Package
+on:
+  push:
+    paths:
+      - 'vite-plugin-mix/package.json'
+    branches:
+      - main
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: ./vite-plugin-mix
+      - name: Publish to npm
+        run: npm publish
+        working-directory: ./vite-plugin-mix
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
