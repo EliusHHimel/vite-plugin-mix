@@ -1,6 +1,6 @@
 {
   "name": "@eliushhimel/vite-plugin-mix",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Adding backend API to your Vite app",
   "repository": {
     "type": "git",
